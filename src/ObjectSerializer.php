@@ -29,7 +29,6 @@
 
 namespace Qase\Client;
 
-use Psr\Http\Message\StreamInterface;
 use Qase\Client\Model\ModelInterface;
 
 /**
@@ -48,7 +47,7 @@ class ObjectSerializer
     /**
      * Change the date format
      *
-     * @param string $format the new date format to use
+     * @param string $format   the new date format to use
      */
     public static function setDateTimeFormat($format)
     {
@@ -58,8 +57,8 @@ class ObjectSerializer
     /**
      * Serialize data
      *
-     * @param mixed $data the data to serialize
-     * @param string $type the OpenAPIToolsType of the data
+     * @param mixed  $data   the data to serialize
+     * @param string $type   the OpenAPIToolsType of the data
      * @param string $format the format of the OpenAPITools type of the data
      *
      * @return scalar|object|array|null serialized form of $data
@@ -104,7 +103,7 @@ class ObjectSerializer
                     }
                 }
             } else {
-                foreach ($data as $property => $value) {
+                foreach($data as $property => $value) {
                     $values[$property] = self::sanitizeForSerialization($value);
                 }
             }
@@ -224,10 +223,10 @@ class ObjectSerializer
     /**
      * Serialize an array to a string.
      *
-     * @param array $collection collection to serialize to a string
-     * @param string $style the format use for serialization (csv,
+     * @param array  $collection                 collection to serialize to a string
+     * @param string $style                      the format use for serialization (csv,
      * ssv, tsv, pipes, multi)
-     * @param bool $allowCollectionFormatMulti allow collection format to be a multidimensional array
+     * @param bool   $allowCollectionFormatMulti allow collection format to be a multidimensional array
      *
      * @return string
      */
@@ -261,10 +260,10 @@ class ObjectSerializer
     /**
      * Deserialize a JSON string into an object
      *
-     * @param mixed $data object or primitive to be deserialized
-     * @param string $class class name is passed as a string
-     * @param string[] $httpHeaders HTTP headers
-     * @param string $discriminator discriminator if polymorphism is used
+     * @param mixed    $data          object or primitive to be deserialized
+     * @param string   $class         class name is passed as a string
+     * @param string[] $httpHeaders   HTTP headers
+     * @param string   $discriminator discriminator if polymorphism is used
      *
      * @return object|array|null a single or an array of $class instances
      */
@@ -341,7 +340,7 @@ class ObjectSerializer
         }
 
         if ($class === '\SplFileObject') {
-            /** @var StreamInterface $data */
+            /** @var \Psr\Http\Message\StreamInterface $data */
 
             // determine file name
             if (array_key_exists('Content-Disposition', $httpHeaders) &&
