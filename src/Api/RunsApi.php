@@ -30,23 +30,14 @@ namespace Qase\Client\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Query;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use Qase\Client\ApiException;
 use Qase\Client\Configuration;
 use Qase\Client\HeaderSelector;
-use Qase\Client\Model\IdResponse;
-use Qase\Client\Model\Response;
-use Qase\Client\Model\RunCreate;
-use Qase\Client\Model\RunListResponse;
-use Qase\Client\Model\RunPublic;
-use Qase\Client\Model\RunPublicResponse;
-use Qase\Client\Model\RunResponse;
 use Qase\Client\ObjectSerializer;
 
 /**
@@ -81,17 +72,16 @@ class RunsApi
 
     /**
      * @param ClientInterface $client
-     * @param Configuration $config
-     * @param HeaderSelector $selector
-     * @param int $hostIndex (Optional) host index to select the list of hosts if defined in the OpenAPI spec
+     * @param Configuration   $config
+     * @param HeaderSelector  $selector
+     * @param int             $hostIndex (Optional) host index to select the list of hosts if defined in the OpenAPI spec
      */
     public function __construct(
         ClientInterface $client = null,
         Configuration $config = null,
         HeaderSelector $selector = null,
         $hostIndex = 0
-    )
-    {
+    ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
         $this->headerSelector = $selector ?: new HeaderSelector();
@@ -131,12 +121,12 @@ class RunsApi
      *
      * Complete a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return Response
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return \Qase\Client\Model\Response
      */
     public function completeRun($code, $id)
     {
@@ -149,12 +139,12 @@ class RunsApi
      *
      * Complete a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return array of \Qase\Client\Model\Response, HTTP status code, HTTP response headers (array of strings)
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return array of \Qase\Client\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function completeRunWithHttpInfo($code, $id)
     {
@@ -167,14 +157,14 @@ class RunsApi
             } catch (RequestException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string)$e->getResponse()->getBody() : null
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
                 );
             } catch (ConnectException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     null,
                     null
                 );
@@ -187,20 +177,20 @@ class RunsApi
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
-                        (string)$request->getUri()
+                        (string) $request->getUri()
                     ),
                     $statusCode,
                     $response->getHeaders(),
-                    (string)$response->getBody()
+                    (string) $response->getBody()
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Qase\Client\Model\Response' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -214,7 +204,7 @@ class RunsApi
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
-                $content = (string)$response->getBody();
+                $content = (string) $response->getBody();
             }
 
             return [
@@ -243,11 +233,11 @@ class RunsApi
      *
      * Complete a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function completeRunAsync($code, $id)
     {
@@ -264,11 +254,11 @@ class RunsApi
      *
      * Complete a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function completeRunAsyncWithHttpInfo($code, $id)
     {
@@ -282,7 +272,7 @@ class RunsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -302,7 +292,7 @@ class RunsApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string)$response->getBody()
+                        (string) $response->getBody()
                     );
                 }
             );
@@ -311,11 +301,11 @@ class RunsApi
     /**
      * Create request for operation 'completeRun'
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return Request
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function completeRunRequest($code, $id)
     {
@@ -345,6 +335,7 @@ class RunsApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
 
 
         // path params
@@ -397,7 +388,7 @@ class RunsApi
 
             } else {
                 // for HTTP post (form)
-                $httpBody = Query::build($formParams);
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
 
@@ -418,7 +409,7 @@ class RunsApi
             $headers
         );
 
-        $query = Query::build($queryParams);
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -432,12 +423,12 @@ class RunsApi
      *
      * Create a new run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param RunCreate $runCreate runCreate (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  \Qase\Client\Model\RunCreate $runCreate runCreate (required)
      *
-     * @return IdResponse
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return \Qase\Client\Model\IdResponse
      */
     public function createRun($code, $runCreate)
     {
@@ -450,12 +441,12 @@ class RunsApi
      *
      * Create a new run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param RunCreate $runCreate (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  \Qase\Client\Model\RunCreate $runCreate (required)
      *
-     * @return array of \Qase\Client\Model\IdResponse, HTTP status code, HTTP response headers (array of strings)
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return array of \Qase\Client\Model\IdResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createRunWithHttpInfo($code, $runCreate)
     {
@@ -468,14 +459,14 @@ class RunsApi
             } catch (RequestException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string)$e->getResponse()->getBody() : null
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
                 );
             } catch (ConnectException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     null,
                     null
                 );
@@ -488,20 +479,20 @@ class RunsApi
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
-                        (string)$request->getUri()
+                        (string) $request->getUri()
                     ),
                     $statusCode,
                     $response->getHeaders(),
-                    (string)$response->getBody()
+                    (string) $response->getBody()
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Qase\Client\Model\IdResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -515,7 +506,7 @@ class RunsApi
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
-                $content = (string)$response->getBody();
+                $content = (string) $response->getBody();
             }
 
             return [
@@ -544,11 +535,11 @@ class RunsApi
      *
      * Create a new run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param RunCreate $runCreate (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  \Qase\Client\Model\RunCreate $runCreate (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function createRunAsync($code, $runCreate)
     {
@@ -565,11 +556,11 @@ class RunsApi
      *
      * Create a new run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param RunCreate $runCreate (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  \Qase\Client\Model\RunCreate $runCreate (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function createRunAsyncWithHttpInfo($code, $runCreate)
     {
@@ -583,7 +574,7 @@ class RunsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -603,7 +594,7 @@ class RunsApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string)$response->getBody()
+                        (string) $response->getBody()
                     );
                 }
             );
@@ -612,11 +603,11 @@ class RunsApi
     /**
      * Create request for operation 'createRun'
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param RunCreate $runCreate (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  \Qase\Client\Model\RunCreate $runCreate (required)
      *
-     * @return Request
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function createRunRequest($code, $runCreate)
     {
@@ -646,6 +637,7 @@ class RunsApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
 
 
         // path params
@@ -696,7 +688,7 @@ class RunsApi
 
             } else {
                 // for HTTP post (form)
-                $httpBody = Query::build($formParams);
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
 
@@ -717,7 +709,7 @@ class RunsApi
             $headers
         );
 
-        $query = Query::build($queryParams);
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -731,12 +723,12 @@ class RunsApi
      *
      * Delete run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return IdResponse
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return \Qase\Client\Model\IdResponse
      */
     public function deleteRun($code, $id)
     {
@@ -749,12 +741,12 @@ class RunsApi
      *
      * Delete run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return array of \Qase\Client\Model\IdResponse, HTTP status code, HTTP response headers (array of strings)
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return array of \Qase\Client\Model\IdResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteRunWithHttpInfo($code, $id)
     {
@@ -767,14 +759,14 @@ class RunsApi
             } catch (RequestException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string)$e->getResponse()->getBody() : null
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
                 );
             } catch (ConnectException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     null,
                     null
                 );
@@ -787,20 +779,20 @@ class RunsApi
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
-                        (string)$request->getUri()
+                        (string) $request->getUri()
                     ),
                     $statusCode,
                     $response->getHeaders(),
-                    (string)$response->getBody()
+                    (string) $response->getBody()
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Qase\Client\Model\IdResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -814,7 +806,7 @@ class RunsApi
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
-                $content = (string)$response->getBody();
+                $content = (string) $response->getBody();
             }
 
             return [
@@ -843,11 +835,11 @@ class RunsApi
      *
      * Delete run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteRunAsync($code, $id)
     {
@@ -864,11 +856,11 @@ class RunsApi
      *
      * Delete run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteRunAsyncWithHttpInfo($code, $id)
     {
@@ -882,7 +874,7 @@ class RunsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -902,7 +894,7 @@ class RunsApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string)$response->getBody()
+                        (string) $response->getBody()
                     );
                 }
             );
@@ -911,11 +903,11 @@ class RunsApi
     /**
      * Create request for operation 'deleteRun'
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
      *
-     * @return Request
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function deleteRunRequest($code, $id)
     {
@@ -945,6 +937,7 @@ class RunsApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
 
 
         // path params
@@ -997,7 +990,7 @@ class RunsApi
 
             } else {
                 // for HTTP post (form)
-                $httpBody = Query::build($formParams);
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
 
@@ -1018,7 +1011,7 @@ class RunsApi
             $headers
         );
 
-        $query = Query::build($queryParams);
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'DELETE',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1032,13 +1025,13 @@ class RunsApi
      *
      * Get a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return RunResponse
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return \Qase\Client\Model\RunResponse
      */
     public function getRun($code, $id, $include = null)
     {
@@ -1051,13 +1044,13 @@ class RunsApi
      *
      * Get a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return array of \Qase\Client\Model\RunResponse, HTTP status code, HTTP response headers (array of strings)
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return array of \Qase\Client\Model\RunResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getRunWithHttpInfo($code, $id, $include = null)
     {
@@ -1070,14 +1063,14 @@ class RunsApi
             } catch (RequestException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string)$e->getResponse()->getBody() : null
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
                 );
             } catch (ConnectException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     null,
                     null
                 );
@@ -1090,20 +1083,20 @@ class RunsApi
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
-                        (string)$request->getUri()
+                        (string) $request->getUri()
                     ),
                     $statusCode,
                     $response->getHeaders(),
-                    (string)$response->getBody()
+                    (string) $response->getBody()
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Qase\Client\Model\RunResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -1117,7 +1110,7 @@ class RunsApi
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
-                $content = (string)$response->getBody();
+                $content = (string) $response->getBody();
             }
 
             return [
@@ -1146,12 +1139,12 @@ class RunsApi
      *
      * Get a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getRunAsync($code, $id, $include = null)
     {
@@ -1168,12 +1161,12 @@ class RunsApi
      *
      * Get a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getRunAsyncWithHttpInfo($code, $id, $include = null)
     {
@@ -1187,7 +1180,7 @@ class RunsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -1207,7 +1200,7 @@ class RunsApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string)$response->getBody()
+                        (string) $response->getBody()
                     );
                 }
             );
@@ -1216,12 +1209,12 @@ class RunsApi
     /**
      * Create request for operation 'getRun'
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return Request
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function getRunRequest($code, $id, $include = null)
     {
@@ -1254,11 +1247,12 @@ class RunsApi
 
         // query params
         if ($include !== null) {
-            if ('form' === 'form' && is_array($include)) {
-                foreach ($include as $key => $value) {
+            if('form' === 'form' && is_array($include)) {
+                foreach($include as $key => $value) {
                     $queryParams[$key] = $value;
                 }
-            } else {
+            }
+            else {
                 $queryParams['include'] = $include;
             }
         }
@@ -1314,7 +1308,7 @@ class RunsApi
 
             } else {
                 // for HTTP post (form)
-                $httpBody = Query::build($formParams);
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
 
@@ -1335,7 +1329,7 @@ class RunsApi
             $headers
         );
 
-        $query = Query::build($queryParams);
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1349,15 +1343,15 @@ class RunsApi
      *
      * Get all runs.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param Filters5 $filters filters (optional)
-     * @param int $limit A number of entities in result set. (optional, default to 10)
-     * @param int $offset How many entities should be skipped. (optional, default to 0)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  Filters5 $filters filters (optional)
+     * @param  int $limit A number of entities in result set. (optional, default to 10)
+     * @param  int $offset How many entities should be skipped. (optional, default to 0)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return RunListResponse
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return \Qase\Client\Model\RunListResponse
      */
     public function getRuns($code, $filters = null, $limit = 10, $offset = 0, $include = null)
     {
@@ -1370,15 +1364,15 @@ class RunsApi
      *
      * Get all runs.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param Filters5 $filters (optional)
-     * @param int $limit A number of entities in result set. (optional, default to 10)
-     * @param int $offset How many entities should be skipped. (optional, default to 0)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  Filters5 $filters (optional)
+     * @param  int $limit A number of entities in result set. (optional, default to 10)
+     * @param  int $offset How many entities should be skipped. (optional, default to 0)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return array of \Qase\Client\Model\RunListResponse, HTTP status code, HTTP response headers (array of strings)
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return array of \Qase\Client\Model\RunListResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getRunsWithHttpInfo($code, $filters = null, $limit = 10, $offset = 0, $include = null)
     {
@@ -1391,14 +1385,14 @@ class RunsApi
             } catch (RequestException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string)$e->getResponse()->getBody() : null
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
                 );
             } catch (ConnectException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     null,
                     null
                 );
@@ -1411,20 +1405,20 @@ class RunsApi
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
-                        (string)$request->getUri()
+                        (string) $request->getUri()
                     ),
                     $statusCode,
                     $response->getHeaders(),
-                    (string)$response->getBody()
+                    (string) $response->getBody()
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Qase\Client\Model\RunListResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -1438,7 +1432,7 @@ class RunsApi
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
-                $content = (string)$response->getBody();
+                $content = (string) $response->getBody();
             }
 
             return [
@@ -1467,14 +1461,14 @@ class RunsApi
      *
      * Get all runs.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param Filters5 $filters (optional)
-     * @param int $limit A number of entities in result set. (optional, default to 10)
-     * @param int $offset How many entities should be skipped. (optional, default to 0)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  Filters5 $filters (optional)
+     * @param  int $limit A number of entities in result set. (optional, default to 10)
+     * @param  int $offset How many entities should be skipped. (optional, default to 0)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getRunsAsync($code, $filters = null, $limit = 10, $offset = 0, $include = null)
     {
@@ -1491,14 +1485,14 @@ class RunsApi
      *
      * Get all runs.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param Filters5 $filters (optional)
-     * @param int $limit A number of entities in result set. (optional, default to 10)
-     * @param int $offset How many entities should be skipped. (optional, default to 0)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  Filters5 $filters (optional)
+     * @param  int $limit A number of entities in result set. (optional, default to 10)
+     * @param  int $offset How many entities should be skipped. (optional, default to 0)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getRunsAsyncWithHttpInfo($code, $filters = null, $limit = 10, $offset = 0, $include = null)
     {
@@ -1512,7 +1506,7 @@ class RunsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -1532,7 +1526,7 @@ class RunsApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string)$response->getBody()
+                        (string) $response->getBody()
                     );
                 }
             );
@@ -1541,14 +1535,14 @@ class RunsApi
     /**
      * Create request for operation 'getRuns'
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param Filters5 $filters (optional)
-     * @param int $limit A number of entities in result set. (optional, default to 10)
-     * @param int $offset How many entities should be skipped. (optional, default to 0)
-     * @param string $include Add this param to include a list of test cases into response. Possible value: cases (optional)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  Filters5 $filters (optional)
+     * @param  int $limit A number of entities in result set. (optional, default to 10)
+     * @param  int $offset How many entities should be skipped. (optional, default to 0)
+     * @param  string $include Include a list of related entities IDs into response. Should be separated by comma. Possible values: cases, defects (optional)
      *
-     * @return Request
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function getRunsRequest($code, $filters = null, $limit = 10, $offset = 0, $include = null)
     {
@@ -1589,41 +1583,45 @@ class RunsApi
 
         // query params
         if ($filters !== null) {
-            if ('form' === 'form' && is_array($filters)) {
-                foreach ($filters as $key => $value) {
+            if('form' === 'form' && is_array($filters)) {
+                foreach($filters as $key => $value) {
                     $queryParams[$key] = $value;
                 }
-            } else {
+            }
+            else {
                 $queryParams['filters'] = $filters;
             }
         }
         // query params
         if ($limit !== null) {
-            if ('form' === 'form' && is_array($limit)) {
-                foreach ($limit as $key => $value) {
+            if('form' === 'form' && is_array($limit)) {
+                foreach($limit as $key => $value) {
                     $queryParams[$key] = $value;
                 }
-            } else {
+            }
+            else {
                 $queryParams['limit'] = $limit;
             }
         }
         // query params
         if ($offset !== null) {
-            if ('form' === 'form' && is_array($offset)) {
-                foreach ($offset as $key => $value) {
+            if('form' === 'form' && is_array($offset)) {
+                foreach($offset as $key => $value) {
                     $queryParams[$key] = $value;
                 }
-            } else {
+            }
+            else {
                 $queryParams['offset'] = $offset;
             }
         }
         // query params
         if ($include !== null) {
-            if ('form' === 'form' && is_array($include)) {
-                foreach ($include as $key => $value) {
+            if('form' === 'form' && is_array($include)) {
+                foreach($include as $key => $value) {
                     $queryParams[$key] = $value;
                 }
-            } else {
+            }
+            else {
                 $queryParams['include'] = $include;
             }
         }
@@ -1671,7 +1669,7 @@ class RunsApi
 
             } else {
                 // for HTTP post (form)
-                $httpBody = Query::build($formParams);
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
 
@@ -1692,7 +1690,7 @@ class RunsApi
             $headers
         );
 
-        $query = Query::build($queryParams);
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1706,13 +1704,13 @@ class RunsApi
      *
      * Update publicity of a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param RunPublic $runPublic runPublic (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  \Qase\Client\Model\RunPublic $runPublic runPublic (required)
      *
-     * @return RunPublicResponse
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return \Qase\Client\Model\RunPublicResponse
      */
     public function updateRunPublicity($code, $id, $runPublic)
     {
@@ -1725,13 +1723,13 @@ class RunsApi
      *
      * Update publicity of a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param RunPublic $runPublic (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  \Qase\Client\Model\RunPublic $runPublic (required)
      *
-     * @return array of \Qase\Client\Model\RunPublicResponse, HTTP status code, HTTP response headers (array of strings)
+     * @throws \Qase\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @throws ApiException on non-2xx response
+     * @return array of \Qase\Client\Model\RunPublicResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateRunPublicityWithHttpInfo($code, $id, $runPublic)
     {
@@ -1744,14 +1742,14 @@ class RunsApi
             } catch (RequestException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string)$e->getResponse()->getBody() : null
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
                 );
             } catch (ConnectException $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    (int)$e->getCode(),
+                    (int) $e->getCode(),
                     null,
                     null
                 );
@@ -1764,20 +1762,20 @@ class RunsApi
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
-                        (string)$request->getUri()
+                        (string) $request->getUri()
                     ),
                     $statusCode,
                     $response->getHeaders(),
-                    (string)$response->getBody()
+                    (string) $response->getBody()
                 );
             }
 
-            switch ($statusCode) {
+            switch($statusCode) {
                 case 200:
                     if ('\Qase\Client\Model\RunPublicResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -1791,7 +1789,7 @@ class RunsApi
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
-                $content = (string)$response->getBody();
+                $content = (string) $response->getBody();
             }
 
             return [
@@ -1820,12 +1818,12 @@ class RunsApi
      *
      * Update publicity of a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param RunPublic $runPublic (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  \Qase\Client\Model\RunPublic $runPublic (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function updateRunPublicityAsync($code, $id, $runPublic)
     {
@@ -1842,12 +1840,12 @@ class RunsApi
      *
      * Update publicity of a specific run.
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param RunPublic $runPublic (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  \Qase\Client\Model\RunPublic $runPublic (required)
      *
-     * @return PromiseInterface
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function updateRunPublicityAsyncWithHttpInfo($code, $id, $runPublic)
     {
@@ -1861,7 +1859,7 @@ class RunsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
-                        $content = (string)$response->getBody();
+                        $content = (string) $response->getBody();
                     }
 
                     return [
@@ -1881,7 +1879,7 @@ class RunsApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        (string)$response->getBody()
+                        (string) $response->getBody()
                     );
                 }
             );
@@ -1890,12 +1888,12 @@ class RunsApi
     /**
      * Create request for operation 'updateRunPublicity'
      *
-     * @param string $code Code of project, where to search entities. (required)
-     * @param int $id Identifier. (required)
-     * @param RunPublic $runPublic (required)
+     * @param  string $code Code of project, where to search entities. (required)
+     * @param  int $id Identifier. (required)
+     * @param  \Qase\Client\Model\RunPublic $runPublic (required)
      *
-     * @return Request
      * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function updateRunPublicityRequest($code, $id, $runPublic)
     {
@@ -1931,6 +1929,7 @@ class RunsApi
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
+
 
 
         // path params
@@ -1989,7 +1988,7 @@ class RunsApi
 
             } else {
                 // for HTTP post (form)
-                $httpBody = Query::build($formParams);
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
 
@@ -2010,7 +2009,7 @@ class RunsApi
             $headers
         );
 
-        $query = Query::build($queryParams);
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'PATCH',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2022,8 +2021,8 @@ class RunsApi
     /**
      * Create http client option
      *
-     * @return array of http client options
      * @throws \RuntimeException on file opening failure
+     * @return array of http client options
      */
     protected function createHttpClientOption()
     {

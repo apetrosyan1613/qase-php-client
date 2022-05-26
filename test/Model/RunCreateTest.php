@@ -160,4 +160,13 @@ class RunCreateTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "customField"
+     */
+    public function testPropertyCustomField()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
