@@ -28,6 +28,9 @@
 
 namespace Qase\Client\Test\Api;
 
+use \Qase\Client\Configuration;
+use \Qase\Client\ApiException;
+use \Qase\Client\ObjectSerializer;
 use PHPUnit\Framework\TestCase;
 
 /**
