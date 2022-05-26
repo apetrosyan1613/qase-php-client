@@ -29,8 +29,8 @@
 
 namespace Qase\Client\Model;
 
-use ArrayAccess;
-use Qase\Client\ObjectSerializer;
+use \ArrayAccess;
+use \Qase\Client\ObjectSerializer;
 
 /**
  * ResultListResponseAllOfResult Class Doc Comment
@@ -39,7 +39,7 @@ use Qase\Client\ObjectSerializer;
  * @package  Qase\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @implements ArrayAccess
+ * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
  */
@@ -48,17 +48,17 @@ class ResultListResponseAllOfResult implements ModelInterface, ArrayAccess, \Jso
     public const DISCRIMINATOR = null;
 
     /**
-     * The original name of the model.
-     *
-     * @var string
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static $openAPIModelName = 'ResultListResponse_allOf_result';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static $openAPITypes = [
         'total' => 'int',
         'filtered' => 'int',
@@ -67,12 +67,12 @@ class ResultListResponseAllOfResult implements ModelInterface, ArrayAccess, \Jso
     ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @var string[]
-     * @phpstan-var array<string, string|null>
-     * @psalm-var array<string, string|null>
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      * @phpstan-var array<string, string|null>
+      * @psalm-var array<string, string|null>
+      */
     protected static $openAPIFormats = [
         'total' => null,
         'filtered' => null,
@@ -299,7 +299,7 @@ class ResultListResponseAllOfResult implements ModelInterface, ArrayAccess, \Jso
     /**
      * Gets entities
      *
-     * @return Result[]|null
+     * @return \Qase\Client\Model\Result[]|null
      */
     public function getEntities()
     {
@@ -309,7 +309,7 @@ class ResultListResponseAllOfResult implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets entities
      *
-     * @param Result[]|null $entities entities
+     * @param \Qase\Client\Model\Result[]|null $entities entities
      *
      * @return self
      */
@@ -319,7 +319,6 @@ class ResultListResponseAllOfResult implements ModelInterface, ArrayAccess, \Jso
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -348,7 +347,7 @@ class ResultListResponseAllOfResult implements ModelInterface, ArrayAccess, \Jso
      * Sets value based on offset.
      *
      * @param int|null $offset Offset
-     * @param mixed $value Value to be set
+     * @param mixed    $value  Value to be set
      *
      * @return void
      */
@@ -382,7 +381,7 @@ class ResultListResponseAllOfResult implements ModelInterface, ArrayAccess, \Jso
      */
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
