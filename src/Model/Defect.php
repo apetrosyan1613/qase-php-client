@@ -29,8 +29,8 @@
 
 namespace Qase\Client\Model;
 
-use ArrayAccess;
-use Qase\Client\ObjectSerializer;
+use \ArrayAccess;
+use \Qase\Client\ObjectSerializer;
 
 /**
  * Defect Class Doc Comment
@@ -39,7 +39,7 @@ use Qase\Client\ObjectSerializer;
  * @package  Qase\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @implements ArrayAccess
+ * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
  */
@@ -48,17 +48,17 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     public const DISCRIMINATOR = null;
 
     /**
-     * The original name of the model.
-     *
-     * @var string
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static $openAPIModelName = 'Defect';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static $openAPITypes = [
         'id' => 'int',
         'title' => 'string',
@@ -80,12 +80,12 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @var string[]
-     * @phpstan-var array<string, string|null>
-     * @psalm-var array<string, string|null>
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      * @phpstan-var array<string, string|null>
+      * @psalm-var array<string, string|null>
+      */
     protected static $openAPIFormats = [
         'id' => 'int64',
         'title' => null,
@@ -449,7 +449,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets customFields
      *
-     * @return CustomFieldValue[]|null
+     * @return \Qase\Client\Model\CustomFieldValue[]|null
      */
     public function getCustomFields()
     {
@@ -459,7 +459,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets customFields
      *
-     * @param CustomFieldValue[]|null $customFields customFields
+     * @param \Qase\Client\Model\CustomFieldValue[]|null $customFields customFields
      *
      * @return self
      */
@@ -473,7 +473,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets attachments
      *
-     * @return Attachment[]|null
+     * @return \Qase\Client\Model\Attachment[]|null
      */
     public function getAttachments()
     {
@@ -483,7 +483,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets attachments
      *
-     * @param Attachment[]|null $attachments attachments
+     * @param \Qase\Client\Model\Attachment[]|null $attachments attachments
      *
      * @return self
      */
@@ -593,7 +593,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets tags
      *
-     * @return TagValue[]|null
+     * @return \Qase\Client\Model\TagValue[]|null
      */
     public function getTags()
     {
@@ -603,7 +603,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tags
      *
-     * @param TagValue[]|null $tags tags
+     * @param \Qase\Client\Model\TagValue[]|null $tags tags
      *
      * @return self
      */
@@ -713,7 +713,6 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -742,7 +741,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
      * Sets value based on offset.
      *
      * @param int|null $offset Offset
-     * @param mixed $value Value to be set
+     * @param mixed    $value  Value to be set
      *
      * @return void
      */
@@ -776,7 +775,7 @@ class Defect implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
