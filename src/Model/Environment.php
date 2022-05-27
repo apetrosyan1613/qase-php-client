@@ -29,8 +29,8 @@
 
 namespace Qase\Client\Model;
 
-use ArrayAccess;
-use Qase\Client\ObjectSerializer;
+use \ArrayAccess;
+use \Qase\Client\ObjectSerializer;
 
 /**
  * Environment Class Doc Comment
@@ -39,7 +39,7 @@ use Qase\Client\ObjectSerializer;
  * @package  Qase\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @implements ArrayAccess
+ * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
  */
@@ -48,17 +48,17 @@ class Environment implements ModelInterface, ArrayAccess, \JsonSerializable
     public const DISCRIMINATOR = null;
 
     /**
-     * The original name of the model.
-     *
-     * @var string
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static $openAPIModelName = 'Environment';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static $openAPITypes = [
         'id' => 'int',
         'title' => 'string',
@@ -68,12 +68,12 @@ class Environment implements ModelInterface, ArrayAccess, \JsonSerializable
     ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @var string[]
-     * @phpstan-var array<string, string|null>
-     * @psalm-var array<string, string|null>
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      * @phpstan-var array<string, string|null>
+      * @psalm-var array<string, string|null>
+      */
     protected static $openAPIFormats = [
         'id' => 'int64',
         'title' => null,
@@ -349,7 +349,6 @@ class Environment implements ModelInterface, ArrayAccess, \JsonSerializable
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -378,7 +377,7 @@ class Environment implements ModelInterface, ArrayAccess, \JsonSerializable
      * Sets value based on offset.
      *
      * @param int|null $offset Offset
-     * @param mixed $value Value to be set
+     * @param mixed    $value  Value to be set
      *
      * @return void
      */
@@ -412,7 +411,7 @@ class Environment implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**

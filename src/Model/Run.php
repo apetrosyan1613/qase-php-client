@@ -29,8 +29,8 @@
 
 namespace Qase\Client\Model;
 
-use ArrayAccess;
-use Qase\Client\ObjectSerializer;
+use \ArrayAccess;
+use \Qase\Client\ObjectSerializer;
 
 /**
  * Run Class Doc Comment
@@ -39,7 +39,7 @@ use Qase\Client\ObjectSerializer;
  * @package  Qase\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @implements ArrayAccess
+ * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
  */
@@ -48,17 +48,17 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     public const DISCRIMINATOR = null;
 
     /**
-     * The original name of the model.
-     *
-     * @var string
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static $openAPIModelName = 'Run';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static $openAPITypes = [
         'id' => 'int',
         'title' => 'string',
@@ -78,12 +78,12 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @var string[]
-     * @phpstan-var array<string, string|null>
-     * @psalm-var array<string, string|null>
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      * @phpstan-var array<string, string|null>
+      * @psalm-var array<string, string|null>
+      */
     protected static $openAPIFormats = [
         'id' => 'int64',
         'title' => null,
@@ -485,7 +485,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets stats
      *
-     * @return RunStats|null
+     * @return \Qase\Client\Model\RunStats|null
      */
     public function getStats()
     {
@@ -495,7 +495,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets stats
      *
-     * @param RunStats|null $stats stats
+     * @param \Qase\Client\Model\RunStats|null $stats stats
      *
      * @return self
      */
@@ -533,7 +533,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets environment
      *
-     * @return RunEnvironment|null
+     * @return \Qase\Client\Model\RunEnvironment|null
      */
     public function getEnvironment()
     {
@@ -543,7 +543,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets environment
      *
-     * @param RunEnvironment|null $environment environment
+     * @param \Qase\Client\Model\RunEnvironment|null $environment environment
      *
      * @return self
      */
@@ -557,7 +557,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets milestone
      *
-     * @return RunMilestone|null
+     * @return \Qase\Client\Model\RunMilestone|null
      */
     public function getMilestone()
     {
@@ -567,7 +567,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets milestone
      *
-     * @param RunMilestone|null $milestone milestone
+     * @param \Qase\Client\Model\RunMilestone|null $milestone milestone
      *
      * @return self
      */
@@ -581,7 +581,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets customFields
      *
-     * @return CustomFieldValue[]|null
+     * @return \Qase\Client\Model\CustomFieldValue[]|null
      */
     public function getCustomFields()
     {
@@ -591,7 +591,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets customFields
      *
-     * @param CustomFieldValue[]|null $customFields customFields
+     * @param \Qase\Client\Model\CustomFieldValue[]|null $customFields customFields
      *
      * @return self
      */
@@ -605,7 +605,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets tags
      *
-     * @return TagValue[]|null
+     * @return \Qase\Client\Model\TagValue[]|null
      */
     public function getTags()
     {
@@ -615,7 +615,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tags
      *
-     * @param TagValue[]|null $tags tags
+     * @param \Qase\Client\Model\TagValue[]|null $tags tags
      *
      * @return self
      */
@@ -649,7 +649,6 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -678,7 +677,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
      * Sets value based on offset.
      *
      * @param int|null $offset Offset
-     * @param mixed $value Value to be set
+     * @param mixed    $value  Value to be set
      *
      * @return void
      */
@@ -712,7 +711,7 @@ class Run implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
