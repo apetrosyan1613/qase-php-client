@@ -28,7 +28,7 @@
 
 namespace Qase\Client;
 
-use Exception;
+use \Exception;
 
 /**
  * ApiException Class Doc Comment
@@ -65,10 +65,10 @@ class ApiException extends Exception
     /**
      * Constructor
      *
-     * @param string $message Error message
-     * @param int $code HTTP status code
-     * @param string[]|null $responseHeaders HTTP response header
-     * @param \stdClass|string|null $responseBody HTTP decoded body of the server response either as \stdClass or string
+     * @param string                $message         Error message
+     * @param int                   $code            HTTP status code
+     * @param string[]|null         $responseHeaders HTTP response header
+     * @param \stdClass|string|null $responseBody    HTTP decoded body of the server response either as \stdClass or string
      */
     public function __construct($message = "", $code = 0, $responseHeaders = [], $responseBody = null)
     {

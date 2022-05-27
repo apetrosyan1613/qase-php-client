@@ -29,8 +29,8 @@
 
 namespace Qase\Client\Model;
 
-use ArrayAccess;
-use Qase\Client\ObjectSerializer;
+use \ArrayAccess;
+use \Qase\Client\ObjectSerializer;
 
 /**
  * SuiteResponseAllOf Class Doc Comment
@@ -39,7 +39,7 @@ use Qase\Client\ObjectSerializer;
  * @package  Qase\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @implements ArrayAccess
+ * @implements \ArrayAccess<TKey, TValue>
  * @template TKey int|null
  * @template TValue mixed|null
  */
@@ -48,28 +48,28 @@ class SuiteResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
     public const DISCRIMINATOR = null;
 
     /**
-     * The original name of the model.
-     *
-     * @var string
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static $openAPIModelName = 'SuiteResponse_allOf';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static $openAPITypes = [
         'result' => '\Qase\Client\Model\Suite'
     ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @var string[]
-     * @phpstan-var array<string, string|null>
-     * @psalm-var array<string, string|null>
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      * @phpstan-var array<string, string|null>
+      * @psalm-var array<string, string|null>
+      */
     protected static $openAPIFormats = [
         'result' => null
     ];
@@ -209,7 +209,7 @@ class SuiteResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets result
      *
-     * @return Suite|null
+     * @return \Qase\Client\Model\Suite|null
      */
     public function getResult()
     {
@@ -219,7 +219,7 @@ class SuiteResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets result
      *
-     * @param Suite|null $result result
+     * @param \Qase\Client\Model\Suite|null $result result
      *
      * @return self
      */
@@ -229,7 +229,6 @@ class SuiteResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -258,7 +257,7 @@ class SuiteResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
      * Sets value based on offset.
      *
      * @param int|null $offset Offset
-     * @param mixed $value Value to be set
+     * @param mixed    $value  Value to be set
      *
      * @return void
      */
@@ -292,7 +291,7 @@ class SuiteResponseAllOf implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function jsonSerialize()
     {
-        return ObjectSerializer::sanitizeForSerialization($this);
+       return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
