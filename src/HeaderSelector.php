@@ -28,6 +28,8 @@
 
 namespace Qase\Client;
 
+use \Exception;
+
 /**
  * ApiException Class Doc Comment
  *
